@@ -1,5 +1,6 @@
 //import React, { useState, useEffect } from 'react';
 // import {empList, empStatus, columns} from './Table'
+
 import React, { useState } from 'react';
 import './App.css';
 import MaterialTable from 'material-table'
@@ -28,7 +29,8 @@ function App() {
 
   const columns = [
     // { title: "ID", field: 'id' },
-    {title: "", field: "avatar", render: (row) => <NameCustomComponent row={row} />},
+    {title: "", field: "avatar", render: (row) => <NameCustomComponent name={row.name} />},
+    {title: "User", field: "user", render: (row) => <UserComponent row={row} />},
     {title: "Role", field: "role"}, 
     {
       title: "Status", field: 'status', render: (row) => <div className={row.status ? "active" : "deactive"}>
@@ -43,6 +45,7 @@ function App() {
     <div className="App">
      
       <MaterialTable
+        container
         title="Project Data"
         data={data}
         columns={columns}
@@ -58,7 +61,7 @@ function App() {
           // onRowDelete: selectedRow => new Promise((resolve, reject) => {
           //   const index = selectedRow.tableData.id;
           //   const updatedRows = [...data]
-          //   updatedRows.splice(index, 1)
+          //   //updatedRows.splice(index, 1)
           //   setTimeout(() => {
           //     setData(updatedRows)
           //     resolve()
@@ -75,12 +78,13 @@ function App() {
           // })
 
         }}
-        
-        
-        
+         
         options={{
           actionsColumnIndex: -1,
           addRowPosition: "first",
+          //columnsButton: true,
+          //filtering: true,
+          hideFilterIcons: false,
           showFirstLastPageButtons: true,
           pageSize: 5,
           padding: 'dense',
